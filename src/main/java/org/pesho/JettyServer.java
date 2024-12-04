@@ -8,10 +8,8 @@ import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.pesho.ratelimiters.FixedWindowRateLimiter;
 import org.pesho.ratelimiters.RateLimiter;
 import org.pesho.ratelimiters.SlidingWindowCounterRateLimiter;
-import org.pesho.ratelimiters.SlidingWindowLogRateLimiter;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -20,6 +18,7 @@ public class JettyServer {
     public void start() {
         Server server = new Server();
         try (ServerConnector c = new ServerConnector(server)) {
+
             c.setIdleTimeout(1000);
             c.setAcceptQueueSize(10);
             c.setPort(8080);
@@ -41,7 +40,7 @@ public class JettyServer {
     public static class LimitedServlet extends HttpServlet {
         private static final long serialVersionUID = 1L;
         private final RateLimiter rateLimiter =
-                new SlidingWindowCounterRateLimiter(Duration.ofSeconds(1), 5);
+                new SlidingWindowCounterRateLimiter(Duration.ofSeconds(60), 5);
 
         @Override
         protected void doGet(final HttpServletRequest req,

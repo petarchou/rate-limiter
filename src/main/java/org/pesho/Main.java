@@ -1,7 +1,8 @@
-package org.pesho;
+import org.pesho.JettyServer;
+import org.pesho.config.RedisClient;
 
-public class Main {
-    public static void main(String[] args) {
+
+static void main() {
+        RedisClient.connect();
         new JettyServer().start();
     }
-}
