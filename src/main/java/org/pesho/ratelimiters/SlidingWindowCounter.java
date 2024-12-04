@@ -28,11 +28,11 @@ public class SlidingWindowCounter {
         long nowMillis = now.toEpochMilli();
         double currWeight =
                 (double) (nowMillis - windowStartMillis) / windowSizeMillis;
-        double prevWeight = 1 - currWeight; //1 - ((now - currWindowStart)/windowSize)
+        double prevWeight = 1 - currWeight;
 
-        boolean canProcess =
-                count < requestsPerWindow
-                && (count * currWeight + prevCount * prevWeight) < requestsPerWindow;
+        double requests = count + prevCount *prevWeight;
+
+        boolean canProcess = requests < requestsPerWindow;
         if (canProcess) {
             currentWindow.incrementAndGet();
         }
