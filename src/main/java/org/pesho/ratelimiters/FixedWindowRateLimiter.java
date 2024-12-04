@@ -1,16 +1,14 @@
-package org.pesho;
+package org.pesho.ratelimiters;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FixedWindowRateLimiter implements RateLimiter {
-    private static final int requestsPerWindow = 11;
+    private static final int requestsPerWindow = 10;
     ConcurrentMap<LocalDateTime, AtomicInteger> timeWindows = new ConcurrentHashMap<>();
     public FixedWindowRateLimiter() {
         setUpWindowCleaner();

@@ -1,4 +1,4 @@
-package org.pesho;
+package org.pesho.ratelimiters;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
