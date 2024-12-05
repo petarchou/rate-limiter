@@ -20,7 +20,7 @@ public class EmbeddedLimiterServer {
         try (ServerConnector c = new ServerConnector(server)) {
 
             c.setIdleTimeout(1000);
-            c.setAcceptQueueSize(10);
+            c.setAcceptQueueSize(200);
             c.setPort(8080);
             c.setHost("localhost");
             ServletContextHandler handler = new ServletContextHandler("", true, false);
