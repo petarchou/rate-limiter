@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.pesho.ratelimiters.SlidingWindowLogRateLimiter;
+import org.pesho.ratelimiters.embedded.SlidingWindowLogRateLimiter;
 
 import java.time.Duration;
 import java.util.ArrayList;

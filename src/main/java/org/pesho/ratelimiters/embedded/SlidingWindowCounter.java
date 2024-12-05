@@ -1,4 +1,4 @@
-package org.pesho.ratelimiters;
+package org.pesho.ratelimiters.embedded;
 
 import java.time.Duration;
 import java.time.Instant;
