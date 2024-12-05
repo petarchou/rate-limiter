@@ -20,6 +20,7 @@ public class RedisClient {
                 new HostAndPort(Environment.getJedisUrl(), Environment.getJedisPort()),
                 config
         );
+        System.out.println("Connected to Redis");
     }
 }
 

@@ -1,4 +1,4 @@
-package org.pesho;
+package org.pesho.servers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -9,12 +9,11 @@ import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.pesho.ratelimiters.RateLimiter;
-import org.pesho.ratelimiters.SlidingWindowCounterRateLimiter;
+import org.pesho.ratelimiters.distributed.RedisStringRateLimiter;
 
 import java.io.IOException;
-import java.time.Duration;
 
-public class JettyServer {
+public class EmbeddedLimiterServer {
     public void start() {
         Server server = new Server();
         try (ServerConnector c = new ServerConnector(server)) {
@@ -31,6 +30,7 @@ public class JettyServer {
             server.setHandler(handler);
             server.addConnector(c);
             server.start();
+            System.out.println("Server started");
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class JettyServer {
     public static class LimitedServlet extends HttpServlet {
         private static final long serialVersionUID = 1L;
         private final RateLimiter rateLimiter =
-                new SlidingWindowCounterRateLimiter(Duration.ofSeconds(60), 5);
+                new RedisStringRateLimiter(60, 5);
 
         @Override
         protected void doGet(final HttpServletRequest req,
