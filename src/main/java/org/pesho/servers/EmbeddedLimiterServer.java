@@ -9,6 +9,7 @@ import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.pesho.ratelimiters.RateLimiter;
+import org.pesho.ratelimiters.distributed.RedisSortedSetRateLimiter;
 import org.pesho.ratelimiters.distributed.RedisStringRateLimiter;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class EmbeddedLimiterServer {
     public static class LimitedServlet extends HttpServlet {
         private static final long serialVersionUID = 1L;
         private final RateLimiter rateLimiter =
-                new RedisStringRateLimiter(60, 5);
+                new RedisSortedSetRateLimiter(1, 12);
 
         @Override
         protected void doGet(final HttpServletRequest req,
